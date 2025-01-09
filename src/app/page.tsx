@@ -4,14 +4,24 @@ import { Chip } from "@/components/chip";
 import { Toast } from "@/components/toast";
 import { InputSearch } from "@/components/input-search";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main>
-      <Typography style="h1">Hello World</Typography>
-      <Typography style="h2">Hello World</Typography>
-      <Typography style="h3">Hello World</Typography>
-      <Typography style="h4">Hello World</Typography>
-      <Typography style="h5">Hello World</Typography>
+      <Typography style="h1" as="h1">
+        Hello World
+      </Typography>
+      <Typography style="h2" as="h2">
+        Hello World
+      </Typography>
+      <Typography style="h3" as="h3">
+        Hello World
+      </Typography>
+      <Typography style="h4" as="h4">
+        Hello World
+      </Typography>
+      <Typography style="h5" as="h5">
+        Hello World
+      </Typography>
       <Button>Hello World</Button>
 
       <Chip type="rating">8.9</Chip>
