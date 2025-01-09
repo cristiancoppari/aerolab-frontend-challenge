@@ -10,6 +10,7 @@ export default {
     extend: {
       colors: {
         "brand-gray-1000": "var(--gray-1000)",
+        "brand-gray-600": "var(--gray-600)",
         "brand-gray-500": "var(--gray-500)",
         "brand-gray-200": "var(--gray-200)",
         "brand-gray-100": "var(--gray-100)",
