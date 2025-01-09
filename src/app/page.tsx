@@ -1,5 +1,6 @@
 import { Typography } from "@/components/typography";
 import { Button } from "@/components/button";
+import { Chip } from "@/components/chip";
 
 export default function Home() {
   return (
@@ -10,6 +11,10 @@ export default function Home() {
       <Typography style="h4">Hello World</Typography>
       <Typography style="h5">Hello World</Typography>
       <Button>Hello World</Button>
+
+      <Chip type="rating">8.9</Chip>
+      <Chip type="release">01/01/2025</Chip>
+      <Chip type="genre">Card & Board Game</Chip>
     </main>
   );
 }

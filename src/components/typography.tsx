@@ -11,6 +11,7 @@ const typographyVariants = cva("", {
       h3: "text-sm font-medium text-brand-violet-100",
       h4: "text-sm font-medium text-brand-gray-600",
       h5: "text-sm font-medium",
+      chip: "text-sm font-medium text-brand-violet-900",
     },
   },
 });
