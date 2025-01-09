@@ -1,4 +1,5 @@
 import { Typography } from "@/components/typography";
+import { Button } from "@/components/button";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Typography style="h3">Hello World</Typography>
       <Typography style="h4">Hello World</Typography>
       <Typography style="h5">Hello World</Typography>
+      <Button>Hello World</Button>
     </main>
   );
 }

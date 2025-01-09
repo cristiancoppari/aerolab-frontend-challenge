@@ -41,3 +41,7 @@ bun dev
 
 - Development URL: [http://localhost:3000](http://localhost:3000).
 - Production URL: [https://aerolab-frontend-challenge-one.vercel.app](https://aerolab-frontend-challenge-one.vercel.app).
+
+## Features
+
+- Exported assets in 2x to avoid loosing quality in high res screens
