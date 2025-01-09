@@ -59,8 +59,8 @@ export function InputSearch() {
             type="search"
             placeholder="Search games..."
             className={cn(
-              "h-10 w-full rounded-3xl border border-brand-pink-600/40 bg-white pl-10 pr-8 shadow-brand-pink-100 placeholder:text-brand-pink-200 focus:border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-100 [&::-webkit-search-cancel-button]:hidden",
-              isOpen && "rounded-b-[0px]",
+              "h-10 w-full rounded-[1.25rem] border border-brand-pink-600/40 bg-white pl-10 pr-8 shadow-brand-pink-100 placeholder:text-brand-pink-200 focus:outline-none focus:ring-0 [&::-webkit-search-cancel-button]:hidden",
+              isOpen && "rounded-b-none",
             )}
             value={search}
             onChange={(e) => {
