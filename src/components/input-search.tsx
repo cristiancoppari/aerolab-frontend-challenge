@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { X, Search } from "lucide-react";
 import { useClickOutside } from "@/hooks/use-click-outside";
+import { cn } from "@/lib/utils";
 
 interface Game {
   id: string;
@@ -48,16 +49,19 @@ export function InputSearch() {
   const filteredGames = games.filter((game) => game.title.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="mx-auto w-full max-w-md p-4">
+    <div className="mx-auto w-full max-w-md rounded-full shadow-[0px_4px_16px_0px_#F2D0E766]">
       <div className="relative" ref={wrapperRef}>
         <div className="relative">
-          <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center">
+          <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center overflow-hidden">
             <Search className="h-4 w-4 text-brand-pink-200" />
           </div>
           <input
             type="search"
             placeholder="Search games..."
-            className="h-10 w-full rounded-full border border-brand-pink-200 bg-white pl-10 pr-8 shadow-brand-pink-100 placeholder:text-brand-pink-200 focus:border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-100 [&::-webkit-search-cancel-button]:hidden"
+            className={cn(
+              "h-10 w-full rounded-3xl border border-brand-pink-600/40 bg-white pl-10 pr-8 shadow-brand-pink-100 placeholder:text-brand-pink-200 focus:border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-100 [&::-webkit-search-cancel-button]:hidden",
+              isOpen && "rounded-b-[0px]",
+            )}
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -79,7 +83,7 @@ export function InputSearch() {
         </div>
 
         {isOpen && (
-          <div className="absolute left-0 right-0 top-full mt-2 overflow-hidden rounded-3xl border border-purple-100 bg-white shadow-lg">
+          <div className="absolute left-0 right-0 top-full overflow-hidden rounded-3xl rounded-t-[0px] border border-t-0 border-brand-pink-600/40 bg-white shadow-lg">
             <div className="p-2">
               {filteredGames.map((game) => (
                 <button
