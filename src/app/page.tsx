@@ -2,6 +2,7 @@ import { Typography } from "@/components/typography";
 import { Button } from "@/components/button";
 import { Chip } from "@/components/chip";
 import { Toast } from "@/components/toast";
+import { InputSearch } from "@/components/input-search";
 
 export default function Home() {
   return (
@@ -21,6 +22,8 @@ export default function Home() {
         <Toast title="Success" description="Your account has been created" variant="success" />
         <Toast title="Error" description="Your account has been created" variant="error" />
       </div>
+
+      <InputSearch />
     </main>
   );
 }
