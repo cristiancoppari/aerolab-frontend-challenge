@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 import { Logo } from "@/components/logo";
@@ -5,7 +7,7 @@ import { Typography } from "@/components/typography";
 import { InputSearch } from "@/components/input-search";
 import { Tabs } from "@/components/tabs";
 
-export default async function Home() {
+export default function Home() {
   return (
     <div className="pt-8">
       <div className="flex items-center gap-2">

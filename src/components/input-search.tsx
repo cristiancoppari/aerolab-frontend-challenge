@@ -1,52 +1,32 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import type { GameSearchResult } from "@/types/api";
+
+import Image from "next/image";
+import { useState, useRef } from "react";
 import { X, Search } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { useDebounceValue } from "usehooks-ts";
+
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { cn } from "@/lib/utils";
-
-interface Game {
-  id: string;
-  title: string;
-  image: string;
-}
-
-const games: Game[] = [
-  {
-    id: "1",
-    title: "Grand Theft Auto San Andreas",
-    image: "/placeholder.svg?height=50&width=50",
-  },
-  {
-    id: "2",
-    title: "Grand Theft Auto V",
-    image: "/placeholder.svg?height=50&width=50",
-  },
-  {
-    id: "3",
-    title: "Grand Theft Auto IV",
-    image: "/placeholder.svg?height=50&width=50",
-  },
-  {
-    id: "4",
-    title: "Grand Theft Auto III",
-    image: "/placeholder.svg?height=50&width=50",
-  },
-  {
-    id: "5",
-    title: "Grand Theft Auto",
-    image: "/placeholder.svg?height=50&width=50",
-  },
-];
+import { searchGame } from "@/lib/fetchers";
+import { getImageUrl } from "@/lib/utils";
+import Link from "next/link";
 
 export function InputSearch() {
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const debouncedSearch = useDebounceValue(search, 300);
+
+  const { data: searchResults, isLoading } = useQuery({
+    queryKey: ["games", debouncedSearch[0]],
+    queryFn: () => searchGame(debouncedSearch[0]),
+    enabled: debouncedSearch[0]?.length > 0,
+  });
 
   useClickOutside(wrapperRef, () => setIsOpen(false));
-
-  const filteredGames = games.filter((game) => game.title.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className="mx-auto w-full max-w-md rounded-full shadow-[0px_4px_16px_0px_#F2D0E766]">
@@ -85,19 +65,30 @@ export function InputSearch() {
         {isOpen && (
           <div className="absolute left-0 right-0 top-full overflow-hidden rounded-3xl rounded-t-[0px] border border-t-0 border-brand-pink-600/40 bg-white shadow-lg">
             <div className="p-2">
-              {filteredGames.map((game) => (
-                <button
-                  key={game.id}
-                  className="flex w-full items-center gap-3 rounded-xl p-2 text-left hover:bg-purple-50"
-                  onClick={() => {
-                    setSearch(game.title);
-                    setIsOpen(false);
-                  }}
-                >
-                  <img src={game.image} alt="" className="h-10 w-10 rounded-lg object-cover" />
-                  <span className="text-sm text-gray-900">{game.title}</span>
-                </button>
-              ))}
+              {isLoading ? (
+                <div className="p-2 text-sm text-gray-500">Loading...</div>
+              ) : searchResults && searchResults.length > 0 ? (
+                searchResults.map((game: GameSearchResult) => (
+                  <Link
+                    key={game.id}
+                    href={`/games/${game.slug}`}
+                    className="flex w-full items-center gap-3 rounded-xl p-2 text-left hover:bg-purple-50"
+                  >
+                    <div className="h-10 w-10 flex-shrink-0">
+                      <Image
+                        src={getImageUrl("cover_small", game.cover?.image_id)}
+                        alt={game.name}
+                        className="h-full w-full rounded-lg object-cover"
+                        width={40}
+                        height={40}
+                      />
+                    </div>
+                    <span className="text-sm text-gray-900">{game.name}</span>
+                  </Link>
+                ))
+              ) : (
+                <div className="p-2 text-sm text-gray-500">No results found</div>
+              )}
             </div>
           </div>
         )}

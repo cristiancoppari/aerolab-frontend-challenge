@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { inter } from "@/lib/font";
 
 import Image from "next/image";
 
+import { inter } from "@/lib/font";
 import "@/styles/globals.css";
+import { QueryProvider } from "@/providers/query-client.provider";
+import AuthWrapper from "@/components/layout/auth-wrapper";
 
 export const metadata: Metadata = {
   title: "Gaming Haven Z",
@@ -26,7 +28,9 @@ export default function RootLayout({
             height={180}
             className="absolute right-0 top-0"
           />
-          {children}
+          <QueryProvider>
+            <AuthWrapper>{children}</AuthWrapper>
+          </QueryProvider>
         </main>
       </body>
     </html>
