@@ -1,5 +1,6 @@
-import { Game, GameSearchResults } from "@/types/api";
-// import { getBaseUrl } from "@/lib/utils";
+import type { Game, GameSearchResults } from "@/types/api";
+
+import { getBaseUrl } from "./utils";
 
 /**
  * Fetches a token from the API
@@ -56,7 +57,7 @@ export async function searchGames(query: string): Promise<GameSearchResults> {
  */
 export async function getGame(slug: string): Promise<Game> {
   try {
-    const response = await fetch(`http://localhost:3000/api/game`, {
+    const response = await fetch(`${getBaseUrl()}/api/game`, {
       method: "POST",
       body: JSON.stringify({ slug }),
       next: {
