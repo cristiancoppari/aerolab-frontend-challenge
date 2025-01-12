@@ -64,6 +64,7 @@ export async function getGame(slug: string): Promise<Game> {
         tags: ["game"],
         revalidate: 60 * 60 * 24,
       },
+      cache: "force-cache",
     });
 
     if (!response.ok) {
