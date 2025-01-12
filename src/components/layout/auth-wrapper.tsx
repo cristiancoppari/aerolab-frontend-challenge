@@ -10,7 +10,6 @@ export default function AuthWrapper({ children }: PropsWithChildren) {
   const { isLoading, error } = useQuery({
     queryKey: ["api-token"],
     queryFn: getToken,
-    refetchOnMount: true,
   });
 
   if (isLoading)
