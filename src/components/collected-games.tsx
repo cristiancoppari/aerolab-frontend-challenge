@@ -3,7 +3,8 @@
 import type { GameFilter } from "@/types/app";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "motion/react";
 
 import { Typography } from "@/components/typography";
 import { Tabs } from "@/components/tabs";
@@ -32,6 +33,9 @@ export function CollectedGames() {
 
   const [filter, setFilter] = useState<GameFilter>(() => DEFAULT_FILTER);
 
+  const tabsRef = useRef(null);
+  const isInView = useInView(tabsRef, { margin: "-1px 0px 0px 0px" });
+
   return (
     <section>
       <div className="flex flex-col gap-4 md:mt-[6.25rem]">
@@ -39,11 +43,26 @@ export function CollectedGames() {
           Saved games
         </Typography>
 
-        <Tabs
-          className={cn(!hasGames && "hidden")}
-          filter={filter}
-          handleFilterChange={setFilter}
-        />
+        <div ref={tabsRef}>
+          <Tabs
+            className={cn(!hasGames && "hidden")}
+            filter={filter}
+            handleFilterChange={setFilter}
+          />
+        </div>
+
+        <AnimatePresence>
+          {!isInView && hasGames && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed left-0 right-0 top-0 z-50"
+            >
+              <Tabs filter={filter} handleFilterChange={setFilter} isFixed />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {hasGames ? (

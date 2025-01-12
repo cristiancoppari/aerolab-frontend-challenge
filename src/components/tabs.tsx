@@ -13,11 +13,24 @@ type TabsProps = {
   className?: string;
   filter: GameFilter;
   handleFilterChange: Dispatch<SetStateAction<GameFilter>>;
+  isFixed?: boolean;
 };
 
-export function Tabs({ className, filter, handleFilterChange }: TabsProps) {
+export function Tabs({
+  className,
+  filter,
+  handleFilterChange,
+  isFixed = false,
+}: TabsProps) {
   return (
-    <ul className={cn("flex items-center md:justify-center", className)}>
+    <ul
+      className={cn(
+        "flex items-center md:justify-center",
+        isFixed &&
+          "mx-auto mt-4 max-w-fit rounded-full bg-white/85 p-1 backdrop-blur-sm",
+        className,
+      )}
+    >
       {pills.map((pill) => (
         <li key={pill.label}>
           <button
