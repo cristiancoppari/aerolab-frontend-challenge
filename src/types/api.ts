@@ -57,3 +57,10 @@ export type GameSimilar = {
   slug: string;
   cover?: IGDBImage;
 };
+
+export type GameCollected = {
+  id: number;
+  name: string;
+  slug: string;
+  cover?: IGDBImage;
+};

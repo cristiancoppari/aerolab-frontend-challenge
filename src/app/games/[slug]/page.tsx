@@ -7,7 +7,6 @@ import { Typography } from "@/components/typography";
 import { InputSearch } from "@/components/input-search";
 import { extractGameData, getImageUrl } from "@/lib/utils";
 import { Chip } from "@/components/chip";
-import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -16,6 +15,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { GameSimilar } from "@/types/api";
+import CollectedGamesButton from "@/components/collected-games-button";
 
 type Params = {
   params: Promise<{ slug: string }>;
@@ -75,7 +75,7 @@ export default async function GamePage({ params }: Params) {
 
       {/* TODO: has to add to local storage */}
       <div className="my-6">
-        <Button className="w-full">Collect game</Button>
+        <CollectedGamesButton game={game} />
       </div>
 
       <div className="mb-10 flex flex-col gap-6">

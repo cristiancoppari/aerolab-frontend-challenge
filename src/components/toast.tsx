@@ -1,6 +1,7 @@
+import { CircleCheckIcon, CircleXIcon } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
-import { CircleCheckIcon, CircleXIcon } from "lucide-react";
 import { Typography } from "./typography";
 
 type ToastVariant = "success" | "error";
@@ -22,9 +23,9 @@ export function Toast({ title, description, variant }: ToastProps) {
   return (
     <div
       className={cn(
-        "flex w-fit max-w-[22.5rem] flex-col gap-1 rounded-lg border border-brand-violet-50 p-4 shadow-2xl shadow-brand-violet-50",
-        variant === "success" && "bg-brand-green-50 border-brand-green-600",
-        variant === "error" && "bg-brand-red-50 border-brand-red-600",
+        "flex w-full max-w-[22.5rem] flex-col gap-1 rounded-lg border border-brand-violet-50 bg-white p-4 shadow-2xl",
+        variant === "success" && "border-brand-green-600",
+        variant === "error" && "border-brand-red-600",
       )}
     >
       <div

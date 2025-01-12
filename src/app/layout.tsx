@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 
 import Image from "next/image";
+import { Toaster } from "sonner";
 
 import { inter } from "@/lib/font";
-import "@/styles/globals.css";
 import { QueryProvider } from "@/providers/query-client.provider";
+import { GameStoreProvider } from "@/providers/local-stored-games.provider";
 import AuthWrapper from "@/components/layout/auth-wrapper";
+
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Gaming Haven Z",
@@ -25,8 +28,11 @@ export default function RootLayout({
           <div className="absolute inset-0 -z-10 h-[800px] bg-gradient-to-b from-brand-pink-50/20 from-[5%] to-brand-gray-0 to-[50%]" />
           <BackgroundImage />
           <QueryProvider>
-            <AuthWrapper>{children}</AuthWrapper>
+            <GameStoreProvider>
+              <AuthWrapper>{children}</AuthWrapper>
+            </GameStoreProvider>
           </QueryProvider>
+          <Toaster />
         </div>
       </body>
     </html>
