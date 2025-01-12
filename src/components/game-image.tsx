@@ -1,0 +1,25 @@
+"use client";
+
+import Image from "next/image";
+import { useMediaQuery } from "usehooks-ts";
+
+import { getImageUrl } from "@/lib/utils";
+import { Game } from "@/types/api";
+
+type Props = {
+  game: Game;
+};
+export function GameImage({ game }: Props) {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
+  return (
+    <Image
+      src={`${getImageUrl(isMobile ? "cover_small" : "cover_big", game.cover?.image_id)}`}
+      alt={game.name}
+      height={isMobile ? 82 : 141}
+      width={isMobile ? 115 : 106}
+      unoptimized
+      className="rounded-md md:h-[14.125rem] md:w-[10.625rem]"
+    />
+  );
+}

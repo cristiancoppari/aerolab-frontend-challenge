@@ -17,7 +17,7 @@ type TabsProps = {
 
 export function Tabs({ className, filter, handleFilterChange }: TabsProps) {
   return (
-    <ul className={cn("flex items-center", className)}>
+    <ul className={cn("flex items-center md:justify-center", className)}>
       {pills.map((pill) => (
         <li key={pill.label}>
           <button

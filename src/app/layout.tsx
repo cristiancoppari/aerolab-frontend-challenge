@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
-import Image from "next/image";
 import { Toaster } from "sonner";
 
 import { inter } from "@/lib/font";
 import { QueryProvider } from "@/providers/query-client.provider";
 import { GameStoreProvider } from "@/providers/local-stored-games.provider";
 import AuthWrapper from "@/components/layout/auth-wrapper";
+import Background from "@/components/layout/background";
 
 import "@/styles/globals.css";
 
@@ -23,10 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
-        <div className="relative px-4">
-          <div className="absolute inset-0 -z-10 h-[800px] bg-gradient-to-b from-brand-pink-50/20 from-[5%] to-brand-gray-0 to-[50%]" />
-          <BackgroundImage />
+      <body className={`${inter.variable} relative antialiased`}>
+        <Background />
+        <GradientBackground />
+
+        <div className="relative mx-auto max-w-[728px] px-4 pt-8 md:pt-[8.75rem]">
           <QueryProvider>
             <GameStoreProvider>
               <AuthWrapper>{children}</AuthWrapper>
@@ -39,15 +40,8 @@ export default function RootLayout({
   );
 }
 
-function BackgroundImage() {
+function GradientBackground() {
   return (
-    <Image
-      src="/images/keys.png"
-      alt="Gaming Haven Z"
-      width={180}
-      height={180}
-      unoptimized
-      className="absolute right-0 top-0"
-    />
+    <div className="absolute inset-0 -z-10 h-[800px] bg-gradient-to-b from-brand-pink-50/20 from-[5%] to-brand-gray-0 to-[50%]" />
   );
 }

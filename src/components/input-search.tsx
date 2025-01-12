@@ -63,7 +63,7 @@ export function InputSearch() {
         </div>
 
         {isOpen && (
-          <div className="absolute left-0 right-0 top-full overflow-hidden rounded-3xl rounded-t-[0px] border border-t-0 border-brand-pink-600/40 bg-white shadow-lg">
+          <div className="absolute left-0 right-0 top-full z-10 overflow-hidden rounded-3xl rounded-t-[0px] border border-t-0 border-brand-pink-600/40 bg-white shadow-lg">
             <div className="p-2">
               {isLoading ? (
                 <div className="p-2 text-sm text-gray-500">Loading...</div>
@@ -87,7 +87,9 @@ export function InputSearch() {
                   </Link>
                 ))
               ) : (
-                <div className="p-2 text-sm text-gray-500">No results found</div>
+                <div className="p-2 text-sm text-gray-500">
+                  No results found
+                </div>
               )}
             </div>
           </div>

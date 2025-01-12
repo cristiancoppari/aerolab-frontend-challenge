@@ -34,8 +34,8 @@ export function CollectedGames() {
 
   return (
     <section>
-      <div className="flex flex-col gap-4">
-        <Typography variant="h1" as="h2">
+      <div className="flex flex-col gap-4 md:mt-[6.25rem]">
+        <Typography variant="h1" as="h2" className="md:text-center">
           Saved games
         </Typography>
 

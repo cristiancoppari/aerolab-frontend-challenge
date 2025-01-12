@@ -15,7 +15,11 @@ type GameCardProps = {
 
 export default function GameCard({ game, deleteGame }: GameCardProps) {
   return (
-    <Link key={game.id} href={`/games/${game.slug}`} className="group relative">
+    <Link
+      key={game.id}
+      href={`/games/${game.slug}`}
+      className="group relative w-full"
+    >
       <Image
         key={game.id}
         src={`${getImageUrl("cover_big", game.cover?.image_id)}`}
@@ -23,7 +27,7 @@ export default function GameCard({ game, deleteGame }: GameCardProps) {
         height={358}
         width={150}
         unoptimized
-        className="rounded-md"
+        className="w-full rounded-md"
       />
 
       {deleteGame && <DeleteButton onClick={() => deleteGame(game.id)} />}

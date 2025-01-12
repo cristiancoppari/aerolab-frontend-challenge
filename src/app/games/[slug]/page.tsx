@@ -17,6 +17,8 @@ import {
 import { GameSimilar } from "@/types/api";
 import CollectedGamesButton from "@/components/collected-games-button";
 import GameGrid from "@/components/layout/game-grid";
+import GameCard from "@/components/ui/game-card";
+import { GameImage } from "@/components/game-image";
 
 type Params = {
   params: Promise<{ slug: string }>;
@@ -38,28 +40,10 @@ export default async function GamePage({ params }: Params) {
 
   return (
     <main className="flex flex-col justify-center">
-      <div className="mb-6 mt-8">
-        <Link href="/" className="flex items-center gap-2">
-          <ArrowLeft className="h-4 w-4" />
-          <Typography as="span" variant="h2" className="text-gradient">
-            Back
-          </Typography>
-        </Link>
+      <GamePageHeader />
 
-        <div className="mb-[1.875rem] mt-5">
-          <InputSearch />
-        </div>
-      </div>
-
-      <section className="flex gap-4">
-        <Image
-          src={`${getImageUrl("cover_small", game.cover?.image_id)}`}
-          alt={game.name}
-          height={82}
-          width={115}
-          unoptimized
-          className="rounded-md"
-        />
+      <section className="flex gap-4 md:mb-6 md:mt-20">
+        <GameImage game={game} />
 
         <div className="flex flex-col gap-2">
           <Typography as="h1" variant="h1">
@@ -71,10 +55,15 @@ export default async function GamePage({ params }: Params) {
               {involvedCompanies.join(", ")}
             </Typography>
           )}
+
+          <CollectedGamesButton
+            game={game}
+            className="hidden w-fit md:mt-6 md:block"
+          />
         </div>
       </section>
 
-      <div className="my-6">
+      <div className="my-6 md:hidden">
         <CollectedGamesButton game={game} />
       </div>
 
@@ -154,7 +143,7 @@ function ScreenshotsCarousel({
               height={84}
               width={84}
               unoptimized
-              className="h-[5.25rem] w-[5.25rem] rounded-md object-cover"
+              className="h-[5.25rem] w-[5.25rem] rounded-md object-cover md:aspect-square md:h-auto md:w-auto"
             />
           </CarouselItem>
         ))}
@@ -167,5 +156,31 @@ function ScreenshotsCarousel({
 }
 
 function SimilarGamesGrid({ similarGames }: { similarGames: GameSimilar[] }) {
-  return <GameGrid games={similarGames} />;
+  return (
+    <GameGrid>
+      {similarGames.map((game) => (
+        <GameCard key={game.id} game={game} />
+      ))}
+    </GameGrid>
+  );
+}
+
+function GamePageHeader() {
+  return (
+    <header className="relative">
+      <Link
+        href="/"
+        className="flex items-center gap-2 md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        <Typography as="span" variant="h2" className="text-gradient">
+          Back
+        </Typography>
+      </Link>
+
+      <div className="mb-[1.875rem] mt-5 md:m-0">
+        <InputSearch />
+      </div>
+    </header>
+  );
 }

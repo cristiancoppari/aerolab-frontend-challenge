@@ -5,14 +5,16 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useGameStore } from "@/providers/local-stored-games.provider";
 import { Game, GameCollected } from "@/types/api";
+import { cn } from "@/lib/utils";
 
 import { Toast } from "./toast";
 
 type Props = {
   game: Game;
+  className?: string;
 };
 
-export default function CollectedGamesButton({ game }: Props) {
+export default function CollectedGamesButton({ game, className }: Props) {
   const { collectedGames, addGame, removeGame } = useGameStore();
 
   if (!game.first_release_date) return null;
@@ -51,7 +53,7 @@ export default function CollectedGamesButton({ game }: Props) {
   }
 
   return (
-    <Button className="w-full" onClick={collectedGameHandler}>
+    <Button className={cn("w-full", className)} onClick={collectedGameHandler}>
       {isCollected ? "Game collected" : "Collect game"}
     </Button>
   );
