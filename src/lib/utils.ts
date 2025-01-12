@@ -24,7 +24,7 @@ export function getImageUrl(size: IGDBImageSize, image_id: string | undefined) {
 export function getBaseUrl() {
   return process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : "https://game-library-app.vercel.app";
+    : process.env.NEXT_PUBLIC_VERCEL_URL;
 }
 
 /**
