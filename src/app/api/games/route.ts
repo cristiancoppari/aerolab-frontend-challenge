@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         "Client-ID": process.env.IGDB_CLIENT_ID,
         Authorization: `Bearer ${token}`,
       },
-      body: `fields slug, name, cover.height, cover.width, cover.image_id; where name ~ *"${query}"*; limit ${LIMIT};`,
+      body: `fields slug, name, cover.height, cover.width, cover.image_id; where name ~ *"${query}"*; limit ${LIMIT}; sort rating desc;`,
     });
 
     if (!response.ok) {
