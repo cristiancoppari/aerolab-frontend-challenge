@@ -6,5 +6,6 @@ declare namespace NodeJS {
   interface ProcessEnv {
     IGDB_CLIENT_ID: string;
     IGDB_CLIENT_SECRET: string;
+    API_URL: string;
   }
 }
