@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { useGameStore } from "@/providers/local-stored-games.provider";
-import { Game } from "@/types/api";
+import { Game, GameCollected } from "@/types/api";
 
 import { Toast } from "./toast";
 
@@ -15,11 +15,15 @@ type Props = {
 export default function CollectedGamesButton({ game }: Props) {
   const { collectedGames, addGame, removeGame } = useGameStore();
 
-  const collectedGameData = {
+  if (!game.first_release_date) return null;
+
+  const collectedGameData: GameCollected = {
     id: game.id,
     name: game.name,
     slug: game.slug,
     cover: game.cover,
+    releaseDate: game.first_release_date,
+    addedAt: new Date().toISOString(),
   };
 
   const isCollected = collectedGames.some((_game) => _game.id === game.id);

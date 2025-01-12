@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/carousel";
 import { GameSimilar } from "@/types/api";
 import CollectedGamesButton from "@/components/collected-games-button";
+import GameGrid from "@/components/layout/game-grid";
 
 type Params = {
   params: Promise<{ slug: string }>;
@@ -73,7 +74,6 @@ export default async function GamePage({ params }: Params) {
         </div>
       </section>
 
-      {/* TODO: has to add to local storage */}
       <div className="my-6">
         <CollectedGamesButton game={game} />
       </div>
@@ -167,21 +167,5 @@ function ScreenshotsCarousel({
 }
 
 function SimilarGamesGrid({ similarGames }: { similarGames: GameSimilar[] }) {
-  return (
-    <div className="grid grid-cols-3 gap-2">
-      {similarGames.map((game) => (
-        <Link key={game.id} href={`/games/${game.slug}`}>
-          <Image
-            key={game.id}
-            src={`${getImageUrl("cover_big", game.cover?.image_id)}`}
-            alt={game.name}
-            height={358}
-            width={150}
-            unoptimized
-            className="rounded-md"
-          />
-        </Link>
-      ))}
-    </div>
-  );
+  return <GameGrid games={similarGames} />;
 }

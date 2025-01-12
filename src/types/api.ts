@@ -63,4 +63,6 @@ export type GameCollected = {
   name: string;
   slug: string;
   cover?: IGDBImage;
+  releaseDate: number;
+  addedAt: string;
 };

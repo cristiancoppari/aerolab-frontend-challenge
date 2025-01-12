@@ -35,7 +35,7 @@ export function extractGameData(game: Game) {
     involvedCompanies:
       game.involved_companies?.map((company) => company.company.name) || [],
     releaseDate: game.first_release_date
-      ? new Date(game.first_release_date * 1000).toLocaleDateString("en-US")
+      ? formatIGDBDate(game.first_release_date)
       : null,
     rating: game.total_rating ? (game.total_rating / 10).toFixed(1) : null,
     genres: game.genres?.map((genre) => genre.name).join(" & ") || null,
@@ -45,4 +45,8 @@ export function extractGameData(game: Game) {
     screenshots: game.screenshots?.map((screenshot) => screenshot.image_id),
     similarGames: game.similar_games?.map((game) => game).slice(0, 6),
   };
+}
+
+export function formatIGDBDate(date: number) {
+  return new Date(date * 1000).toLocaleDateString("en-US");
 }

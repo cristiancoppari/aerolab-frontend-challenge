@@ -1,32 +1,37 @@
-"use client";
-
-import { useState } from "react";
+import type { GameFilter } from "@/types/app";
+import type { Dispatch, SetStateAction } from "react";
 
 import { cn } from "@/lib/utils";
 
-// TODO: fix
-const pillLabels = ["Last added", "Newest", "Oldest"];
+const pills: { label: string; dataFilter: GameFilter }[] = [
+  { label: "Last added", dataFilter: "last-added" },
+  { label: "Newest", dataFilter: "newest" },
+  { label: "Oldest", dataFilter: "oldest" },
+];
 
-export function Tabs() {
-  const [active, setActive] = useState(1);
+type TabsProps = {
+  className?: string;
+  filter: GameFilter;
+  handleFilterChange: Dispatch<SetStateAction<GameFilter>>;
+};
 
+export function Tabs({ className, filter, handleFilterChange }: TabsProps) {
   return (
-    <div>
-      <ul className="flex items-center">
-        {pillLabels.map((label, index) => (
-          <li key={label}>
-            <button
-              onClick={() => setActive(index)}
-              className={cn(
-                "inline-flex items-center justify-center rounded-full px-3 py-1.5 text-sm font-semibold text-brand-violet-900 transition-all duration-200 ease-in-out",
-                active === index && "bg-brand-violet-900 text-brand-gray-0",
-              )}
-            >
-              {label}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className={cn("flex items-center", className)}>
+      {pills.map((pill) => (
+        <li key={pill.label}>
+          <button
+            onClick={() => handleFilterChange(pill.dataFilter)}
+            className={cn(
+              "inline-flex items-center justify-center rounded-full px-3 py-1.5 text-sm font-semibold text-brand-violet-900 transition-all duration-200 ease-in-out",
+              pill.dataFilter === filter &&
+                "bg-brand-violet-900 text-brand-gray-0",
+            )}
+          >
+            {pill.label}
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 }
