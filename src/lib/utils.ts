@@ -22,7 +22,9 @@ export function getImageUrl(size: IGDBImageSize, image_id: string | undefined) {
  * @returns The base URL for the current environment
  */
 export function getBaseUrl() {
-  return process.env.API_URL;
+  return process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://aerolab-frontend-challenge-one.vercel.app";
 }
 
 /**

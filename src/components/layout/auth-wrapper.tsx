@@ -8,13 +8,22 @@ import { getToken } from "@/lib/fetchers";
 
 export default function AuthWrapper({ children }: PropsWithChildren) {
   const { isLoading, error } = useQuery({
-    queryKey: ["token"],
+    queryKey: ["api-token"],
     queryFn: getToken,
   });
 
-  if (isLoading) return <div className="flex h-[50vh] items-center justify-center bg-transparent">Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="flex h-[50vh] items-center justify-center bg-transparent">
+        Loading...
+      </div>
+    );
   if (error)
-    return <div className="flex h-[50vh] items-center justify-center bg-transparent">Error: {error.message}</div>;
+    return (
+      <div className="flex h-[50vh] items-center justify-center bg-transparent">
+        Error: {error.message}
+      </div>
+    );
 
   return <>{children}</>;
 }
