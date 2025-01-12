@@ -84,7 +84,17 @@ export function CollectedGames() {
       {hasGames ? (
         <Games games={collectedGames} filter={filter} />
       ) : (
-        <EmptyState />
+        <AnimatePresence>
+          <motion.div
+            variants={FADE_IN_VARIANTS}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            transition={{ duration: 0.3, delay: 0.7 }}
+          >
+            <EmptyState />
+          </motion.div>
+        </AnimatePresence>
       )}
     </section>
   );
@@ -96,6 +106,7 @@ function EmptyState() {
       <Image
         src="/images/empty.png"
         alt="Empty state"
+        unoptimized
         width={358}
         height={168}
       />
