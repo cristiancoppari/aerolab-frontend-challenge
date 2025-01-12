@@ -9,10 +9,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounceValue } from "usehooks-ts";
 import Link from "next/link";
 
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { cn } from "@/lib/utils";
 import { searchGames } from "@/lib/fetchers";
 import { getImageUrl } from "@/lib/utils";
+
+const LIMIT = 10;
 
 export function InputSearch() {
   const [search, setSearch] = useState("");
@@ -64,11 +67,11 @@ export function InputSearch() {
 
         {isOpen && (
           <div className="absolute left-0 right-0 top-full z-10 overflow-hidden rounded-3xl rounded-t-[0px] border border-t-0 border-brand-pink-600/40 bg-white shadow-lg">
-            <div className="p-2">
+            <ScrollArea className="h-[300px] overflow-y-auto p-2">
               {isLoading ? (
                 <div className="p-2 text-sm text-gray-500">Loading...</div>
               ) : searchResults && searchResults.length > 0 ? (
-                searchResults.map((game: GameSearchResult) => (
+                searchResults.slice(0, LIMIT).map((game: GameSearchResult) => (
                   <Link
                     key={game.id}
                     href={`/games/${game.slug}`}
@@ -91,7 +94,7 @@ export function InputSearch() {
                   No results found
                 </div>
               )}
-            </div>
+            </ScrollArea>
           </div>
         )}
       </div>

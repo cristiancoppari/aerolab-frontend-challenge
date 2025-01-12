@@ -59,6 +59,10 @@ export async function getGame(slug: string): Promise<Game> {
     const response = await fetch(`http://localhost:3000/api/game`, {
       method: "POST",
       body: JSON.stringify({ slug }),
+      next: {
+        tags: ["game"],
+        revalidate: 60 * 60 * 24,
+      },
     });
 
     if (!response.ok) {

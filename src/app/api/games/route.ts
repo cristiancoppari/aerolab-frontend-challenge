@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         "Client-ID": process.env.IGDB_CLIENT_ID,
         Authorization: `Bearer ${token}`,
       },
-      body: `fields slug, name, cover.height, cover.width, cover.image_id; search "${query}"; limit ${LIMIT};`,
+      body: `fields slug, name, cover.height, cover.width, cover.image_id; where name ~ *"${query}"*; limit ${LIMIT};`,
     });
 
     if (!response.ok) {
@@ -28,6 +28,9 @@ export async function POST(request: Request) {
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error fetching games", error);
-    return NextResponse.json({ error: "Failed to fetch games" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch games" },
+      { status: 500 },
+    );
   }
 }

@@ -53,7 +53,10 @@ export default function CollectedGamesButton({ game, className }: Props) {
   }
 
   return (
-    <Button className={cn("w-full", className)} onClick={collectedGameHandler}>
+    <Button
+      className={cn("w-full", className, isCollected && "")}
+      onClick={collectedGameHandler}
+    >
       {isCollected ? "Game collected" : "Collect game"}
     </Button>
   );
