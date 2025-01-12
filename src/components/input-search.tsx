@@ -7,12 +7,12 @@ import { useState, useRef } from "react";
 import { X, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounceValue } from "usehooks-ts";
+import Link from "next/link";
 
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { cn } from "@/lib/utils";
-import { searchGame } from "@/lib/fetchers";
+import { searchGames } from "@/lib/fetchers";
 import { getImageUrl } from "@/lib/utils";
-import Link from "next/link";
 
 export function InputSearch() {
   const [search, setSearch] = useState("");
@@ -22,7 +22,7 @@ export function InputSearch() {
 
   const { data: searchResults, isLoading } = useQuery({
     queryKey: ["games", debouncedSearch[0]],
-    queryFn: () => searchGame(debouncedSearch[0]),
+    queryFn: () => searchGames(debouncedSearch[0]),
     enabled: debouncedSearch[0]?.length > 0,
   });
 

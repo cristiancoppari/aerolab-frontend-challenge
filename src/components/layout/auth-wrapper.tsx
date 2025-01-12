@@ -3,6 +3,7 @@
 import type { PropsWithChildren } from "react";
 
 import { useQuery } from "@tanstack/react-query";
+
 import { getToken } from "@/lib/fetchers";
 
 export default function AuthWrapper({ children }: PropsWithChildren) {

@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from "react";
 
 import { StarIcon, CalendarIcon, PuzzleIcon } from "lucide-react";
+
 import { Typography } from "@/components/typography";
 
 type ChipProps = {
@@ -16,7 +17,7 @@ const chipIcons = {
 const chipLabels = {
   rating: "Rating",
   release: "Calendar",
-  genre: "Puzzle",
+  genre: "Genre",
 } as const;
 
 export function Chip({ children, type }: ChipProps) {
@@ -27,10 +28,10 @@ export function Chip({ children, type }: ChipProps) {
     <span className="inline-flex items-center gap-1 rounded-full border border-brand-violet-50 px-3 py-1 text-sm font-medium text-brand-violet-100">
       <div className="flex items-center gap-1 text-brand-violet-600">
         <Icon className="size-4" />
-        <Typography style="h5">{label}:</Typography>
+        <Typography variant="h5">{label}:</Typography>
       </div>
 
-      <Typography style="chip">{children}</Typography>
+      <Typography variant="chip">{children}</Typography>
     </span>
   );
 }

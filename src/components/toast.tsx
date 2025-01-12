@@ -35,10 +35,10 @@ export function Toast({ title, description, variant }: ToastProps) {
         )}
       >
         <Icon className="size-4" />
-        <Typography style="h2">{title}</Typography>
+        <Typography variant="h2">{title}</Typography>
       </div>
 
-      <Typography style="h4">{description}</Typography>
+      <Typography variant="h4">{description}</Typography>
     </div>
   );
 }

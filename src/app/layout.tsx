@@ -26,6 +26,7 @@ export default function RootLayout({
             alt="Gaming Haven Z"
             width={180}
             height={180}
+            unoptimized
             className="absolute right-0 top-0"
           />
           <QueryProvider>

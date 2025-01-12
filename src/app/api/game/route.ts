@@ -3,11 +3,9 @@ import { NextResponse } from "next/server";
 
 import { IGDB_BASE_URL } from "@/lib/constants";
 
-const LIMIT = 50;
-
 export async function POST(request: Request) {
   try {
-    const { query } = await request.json();
+    const { slug } = await request.json();
     const redis = Redis.fromEnv();
     const token = await redis.get("api-token");
     const response = await fetch(`${IGDB_BASE_URL}/games`, {
@@ -16,7 +14,7 @@ export async function POST(request: Request) {
         "Client-ID": process.env.IGDB_CLIENT_ID,
         Authorization: `Bearer ${token}`,
       },
-      body: `fields slug, name, cover.height, cover.width, cover.image_id; search "${query}"; limit ${LIMIT};`,
+      body: `fields slug, name, involved_companies.company.name, cover.height, cover.width, cover.image_id, total_rating, first_release_date, genres.name, summary, platforms.name, screenshots.height, screenshots.width, screenshots.image_id, similar_games.name, similar_games.slug, similar_games.cover.image_id, similar_games.cover.height, similar_games.cover.width; where slug = "${slug}";`,
     });
 
     if (!response.ok) {

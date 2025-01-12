@@ -12,7 +12,7 @@ export default function Home() {
     <div className="pt-8">
       <div className="flex items-center gap-2">
         <Logo />
-        <Typography style="h1">Gaming Haven Z</Typography>
+        <Typography variant="h1">Gaming Haven Z</Typography>
       </div>
 
       <div className="mb-[1.875rem] mt-5">
@@ -20,7 +20,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col gap-4">
-        <Typography style="h1" as="h2">
+        <Typography variant="h1" as="h2">
           Saved games
         </Typography>
 
@@ -38,11 +38,11 @@ function EmptyState() {
       <Image src="/images/empty.png" alt="Empty state" width={358} height={168} />
 
       <div className="mt-6 flex flex-col gap-2 text-center">
-        <Typography style="h2" as="h2">
+        <Typography variant="h2" as="h2">
           Nothing collected yet
         </Typography>
 
-        <Typography style="h4" as="h3">
+        <Typography variant="h4" as="h3">
           Here you will see your collected games
         </Typography>
       </div>

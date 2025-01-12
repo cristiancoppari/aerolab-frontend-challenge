@@ -30,3 +30,9 @@
     --radius: 0.5rem;
   }
 }
+
+@layer components {
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-violet-900 via-brand-violet-600 to-brand-violet-600 bg-clip-text text-transparent;
+  }
+}
