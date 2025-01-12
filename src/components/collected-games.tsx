@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { GameCollected } from "@/types/api";
 
 import GameGrid from "./layout/game-grid";
+import GameCard from "./ui/game-card";
 
 const DEFAULT_FILTER = "last-added";
 
@@ -84,11 +85,21 @@ function Games({
   games: GameCollected[];
   filter: GameFilter;
 }) {
+  const { removeGame } = useGameStore();
+
   const sortedGames = sortMethods[filter](games);
 
   return (
     <div className="mt-6">
-      <GameGrid games={sortedGames} />
+      <GameGrid>
+        {sortedGames.map((game) => (
+          <GameCard
+            key={game.id}
+            game={game}
+            deleteGame={() => removeGame(game.id)}
+          />
+        ))}
+      </GameGrid>
     </div>
   );
 }
