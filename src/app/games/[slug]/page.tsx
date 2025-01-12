@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import { cache } from "react";
 
 import { getGame } from "@/lib/fetchers";
 import { Typography } from "@/components/typography";
@@ -24,9 +25,15 @@ type Params = {
   params: Promise<{ slug: string }>;
 };
 
+const getGameCached = cache(async (slug: string) => {
+  return await getGame(slug);
+});
+
 export default async function GamePage({ params }: Params) {
   const { slug } = await params;
-  const game = await getGame(slug);
+
+  const game = await getGameCached(slug);
+
   const {
     involvedCompanies,
     releaseDate,

@@ -61,8 +61,7 @@ export async function getGame(slug: string): Promise<Game> {
       method: "POST",
       body: JSON.stringify({ slug }),
       next: {
-        tags: ["game"],
-        revalidate: 60 * 60 * 24,
+        tags: [`game-${slug}`],
       },
       cache: "force-cache",
     });
