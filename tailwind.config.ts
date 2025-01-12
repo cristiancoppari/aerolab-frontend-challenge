@@ -13,6 +13,7 @@ export default {
         "brand-gray": {
           "0": "rgb(var(--gray-0) / <alpha-value>)",
           "100": "rgb(var(--gray-100) / <alpha-value>)",
+          "150": "rgb(var(--gray-150) / <alpha-value>)",
           "200": "rgb(var(--gray-200) / <alpha-value>)",
           "500": "rgb(var(--gray-500) / <alpha-value>)",
           "600": "rgb(var(--gray-600) / <alpha-value>)",

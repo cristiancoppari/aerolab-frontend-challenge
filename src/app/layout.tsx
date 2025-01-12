@@ -9,7 +9,8 @@ import AuthWrapper from "@/components/layout/auth-wrapper";
 
 export const metadata: Metadata = {
   title: "Gaming Haven Z",
-  description: "Application for searching video games and their reviews from your favorite platforms.",
+  description:
+    "Application for searching video games and their reviews from your favorite platforms.",
 };
 
 export default function RootLayout({
@@ -20,20 +21,27 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <main className="relative bg-gradient-to-b from-brand-pink-50/20 from-[5%] to-brand-gray-0 to-[50%] px-4">
-          <Image
-            src="/images/keys.png"
-            alt="Gaming Haven Z"
-            width={180}
-            height={180}
-            unoptimized
-            className="absolute right-0 top-0"
-          />
+        <div className="relative px-4">
+          <div className="absolute inset-0 -z-10 h-[800px] bg-gradient-to-b from-brand-pink-50/20 from-[5%] to-brand-gray-0 to-[50%]" />
+          <BackgroundImage />
           <QueryProvider>
             <AuthWrapper>{children}</AuthWrapper>
           </QueryProvider>
-        </main>
+        </div>
       </body>
     </html>
+  );
+}
+
+function BackgroundImage() {
+  return (
+    <Image
+      src="/images/keys.png"
+      alt="Gaming Haven Z"
+      width={180}
+      height={180}
+      unoptimized
+      className="absolute right-0 top-0"
+    />
   );
 }

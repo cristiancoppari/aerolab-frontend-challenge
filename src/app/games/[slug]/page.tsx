@@ -5,9 +5,17 @@ import Image from "next/image";
 import { getGame } from "@/lib/fetchers";
 import { Typography } from "@/components/typography";
 import { InputSearch } from "@/components/input-search";
-import { getImageUrl } from "@/lib/utils";
+import { extractGameData, getImageUrl } from "@/lib/utils";
 import { Chip } from "@/components/chip";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { GameSimilar } from "@/types/api";
 
 type Params = {
   params: Promise<{ slug: string }>;
@@ -16,17 +24,16 @@ type Params = {
 export default async function GamePage({ params }: Params) {
   const { slug } = await params;
   const game = await getGame(slug);
-
-  const involvedCompanies = game.involved_companies?.map((company) => company.company.name) || [];
-  const releaseDate = game.first_release_date
-    ? new Date(game.first_release_date * 1000).toLocaleDateString("en-US")
-    : null;
-  const rating = game.total_rating ? (game.total_rating / 10).toFixed(1) : null;
-  const genres = game.genres?.map((genre) => genre.name).join(" & ");
-  const summary = game.summary;
-  const platforms = game.platforms?.map((platform) => platform.name).join(", ");
-
-  console.log(JSON.stringify(game, null, 2));
+  const {
+    involvedCompanies,
+    releaseDate,
+    rating,
+    genres,
+    summary,
+    platforms,
+    screenshots,
+    similarGames,
+  } = extractGameData(game);
 
   return (
     <main className="flex flex-col justify-center">
@@ -71,7 +78,7 @@ export default async function GamePage({ params }: Params) {
         <Button className="w-full">Collect game</Button>
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="mb-10 flex flex-col gap-6">
         <div className="flex flex-wrap gap-2">
           <Chip type="release">{releaseDate}</Chip>
           <Chip type="rating">{rating}</Chip>
@@ -101,7 +108,80 @@ export default async function GamePage({ params }: Params) {
             </Typography>
           </section>
         )}
+
+        {screenshots && (
+          <section>
+            <Typography as="h2" variant="h2" className="mb-2">
+              Media
+            </Typography>
+
+            <ScreenshotsCarousel
+              screenshots={screenshots}
+              gameName={game.name}
+            />
+          </section>
+        )}
       </div>
+
+      {similarGames && (
+        <section className="mb-4">
+          <Typography as="h2" variant="h1" className="mb-4">
+            Similar games
+          </Typography>
+
+          <SimilarGamesGrid similarGames={similarGames} />
+        </section>
+      )}
     </main>
+  );
+}
+
+function ScreenshotsCarousel({
+  screenshots,
+  gameName,
+}: {
+  screenshots: string[];
+  gameName: string;
+}) {
+  return (
+    <Carousel>
+      <CarouselContent>
+        {screenshots.map((screenshot) => (
+          <CarouselItem key={screenshot} className="basis-1/4">
+            <Image
+              src={`${getImageUrl("1080p", screenshot)}`}
+              alt={`${gameName} screenshot`}
+              height={84}
+              width={84}
+              unoptimized
+              className="h-[5.25rem] w-[5.25rem] rounded-md object-cover"
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+
+      <CarouselPrevious className="absolute -left-2 top-1/2 h-10 w-10 -translate-y-1/2 border-none bg-brand-gray-150/50 backdrop-blur-sm" />
+      <CarouselNext className="absolute -right-2 top-1/2 h-10 w-10 -translate-y-1/2 border-none bg-brand-gray-150/50 backdrop-blur-sm" />
+    </Carousel>
+  );
+}
+
+function SimilarGamesGrid({ similarGames }: { similarGames: GameSimilar[] }) {
+  return (
+    <div className="grid grid-cols-3 gap-2">
+      {similarGames.map((game) => (
+        <Link key={game.id} href={`/games/${game.slug}`}>
+          <Image
+            key={game.id}
+            src={`${getImageUrl("cover_big", game.cover?.image_id)}`}
+            alt={game.name}
+            height={358}
+            width={150}
+            unoptimized
+            className="rounded-md"
+          />
+        </Link>
+      ))}
+    </div>
   );
 }

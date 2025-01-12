@@ -1,3 +1,6 @@
+/**
+ * IGDB types
+ */
 export type IGDBImageSize = "cover_small" | "cover_big" | "1080p";
 
 export type Game = {
@@ -47,3 +50,10 @@ export type IGDBImage = {
 };
 
 export type GameSearchResults = GameSearchResult[];
+
+export type GameSimilar = {
+  id: number;
+  name: string;
+  slug: string;
+  cover?: IGDBImage;
+};
