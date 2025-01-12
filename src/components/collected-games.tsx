@@ -11,6 +11,7 @@ import { Tabs } from "@/components/tabs";
 import { useGameStore } from "@/providers/local-stored-games.provider";
 import { cn } from "@/lib/utils";
 import { GameCollected } from "@/types/api";
+import { FADE_IN_VARIANTS } from "@/lib/constants";
 
 import GameGrid from "./layout/game-grid";
 import GameCard from "./ui/game-card";
@@ -39,17 +40,32 @@ export function CollectedGames() {
   return (
     <section>
       <div className="flex flex-col gap-4 md:mt-[6.25rem]">
-        <Typography variant="h1" as="h2" className="md:text-center">
-          Saved games
-        </Typography>
+        <motion.div
+          variants={FADE_IN_VARIANTS}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          transition={{ duration: 0.3, delay: 0.5 }}
+        >
+          <Typography variant="h1" as="h2" className="md:text-center">
+            Saved games
+          </Typography>
+        </motion.div>
 
-        <div ref={tabsRef}>
+        <motion.div
+          variants={FADE_IN_VARIANTS}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          transition={{ duration: 0.3, delay: 0.6 }}
+          ref={tabsRef}
+        >
           <Tabs
             className={cn(!hasGames && "hidden")}
             filter={filter}
             handleFilterChange={setFilter}
           />
-        </div>
+        </motion.div>
 
         <AnimatePresence>
           {!isInView && hasGames && (
@@ -109,7 +125,13 @@ function Games({
   const sortedGames = sortMethods[filter](games);
 
   return (
-    <div className="mt-6">
+    <motion.div
+      className="mt-6"
+      variants={FADE_IN_VARIANTS}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 0.5, delay: 0.7 }}
+    >
       <GameGrid>
         {sortedGames.map((game) => (
           <GameCard
@@ -119,6 +141,6 @@ function Games({
           />
         ))}
       </GameGrid>
-    </div>
+    </motion.div>
   );
 }
