@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
 import { getGame } from "@/lib/fetchers";
 import { Typography } from "@/components/typography";
-import { InputSearch } from "@/components/input-search";
 import { extractGameData, getImageUrl } from "@/lib/utils";
 import { Chip } from "@/components/chip";
 import {
@@ -88,8 +85,6 @@ export default async function GamePage({ params }: Params) {
 
   return (
     <main className="flex flex-col justify-center">
-      <GamePageHeader />
-
       <section className="flex gap-4 md:mb-6 md:mt-20">
         <GameImage game={game} />
 
@@ -210,25 +205,5 @@ function SimilarGamesGrid({ similarGames }: { similarGames: GameSimilar[] }) {
         <GameCard key={game.id} game={game} />
       ))}
     </GameGrid>
-  );
-}
-
-function GamePageHeader() {
-  return (
-    <header className="relative">
-      <Link
-        href="/"
-        className="flex items-center gap-2 md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        <Typography as="span" variant="h2" className="text-gradient">
-          Back
-        </Typography>
-      </Link>
-
-      <div className="mb-[1.875rem] mt-5 md:m-0">
-        <InputSearch />
-      </div>
-    </header>
   );
 }

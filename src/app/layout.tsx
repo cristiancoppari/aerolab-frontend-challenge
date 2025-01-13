@@ -9,6 +9,7 @@ import AuthWrapper from "@/components/layout/auth-wrapper";
 import Background from "@/components/layout/background";
 import { getBaseUrl } from "@/lib/utils";
 import { OG_DATA_BASE, TWITTER_DATA_BASE } from "@/lib/opengraph-data";
+import { Header } from "@/components/layout/header";
 
 import "@/styles/globals.css";
 
@@ -43,7 +44,10 @@ export default function RootLayout({
         <div className="relative mx-auto max-w-[728px] px-4 pt-8 md:pt-[8.75rem]">
           <QueryProvider>
             <GameStoreProvider>
-              <AuthWrapper>{children}</AuthWrapper>
+              <AuthWrapper>
+                <Header />
+                {children}
+              </AuthWrapper>
             </GameStoreProvider>
           </QueryProvider>
           <Toaster position="bottom-center" />
