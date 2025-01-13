@@ -43,7 +43,7 @@ function DeleteButton({ onClick }: { onClick: () => void }) {
         e.stopPropagation();
         onClick();
       }}
-      className="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-white/85 opacity-0 backdrop-blur-[10px] transition-opacity duration-200 group-hover:opacity-100"
+      className="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-white/85 opacity-100 backdrop-blur-[10px] transition-opacity duration-200 md:opacity-0 md:group-hover:opacity-100"
     >
       <TrashIcon className="h-5 w-5" />
     </button>

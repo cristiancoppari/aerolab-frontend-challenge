@@ -33,7 +33,7 @@ export default function RootLayout({
               <AuthWrapper>{children}</AuthWrapper>
             </GameStoreProvider>
           </QueryProvider>
-          <Toaster />
+          <Toaster position="bottom-center" />
         </div>
       </body>
     </html>

@@ -1,8 +1,10 @@
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
-import { cache } from "react";
 
 import { getGame } from "@/lib/fetchers";
 import { Typography } from "@/components/typography";
+import { InputSearch } from "@/components/input-search";
 import { extractGameData, getImageUrl } from "@/lib/utils";
 import { Chip } from "@/components/chip";
 import {
@@ -17,21 +19,14 @@ import CollectedGamesButton from "@/components/collected-games-button";
 import GameGrid from "@/components/layout/game-grid";
 import GameCard from "@/components/ui/game-card";
 import { GameImage } from "@/components/game-image";
-import { GamePageHeader } from "@/components/game-page-header";
 
 type Params = {
   params: Promise<{ slug: string }>;
 };
 
-const getGameCached = cache(async (slug: string) => {
-  return await getGame(slug);
-});
-
 export default async function GamePage({ params }: Params) {
   const { slug } = await params;
-
-  const game = await getGameCached(slug);
-
+  const game = await getGame(slug);
   const {
     involvedCompanies,
     releaseDate,
@@ -167,5 +162,25 @@ function SimilarGamesGrid({ similarGames }: { similarGames: GameSimilar[] }) {
         <GameCard key={game.id} game={game} />
       ))}
     </GameGrid>
+  );
+}
+
+function GamePageHeader() {
+  return (
+    <header className="relative">
+      <Link
+        href="/"
+        className="flex items-center gap-2 md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        <Typography as="span" variant="h2" className="text-gradient">
+          Back
+        </Typography>
+      </Link>
+
+      <div className="mb-[1.875rem] mt-5 md:m-0">
+        <InputSearch />
+      </div>
+    </header>
   );
 }

@@ -1,3 +1,7 @@
+/**
+ * @deprecated
+ * Extracted this component to test router.back()
+ */
 "use client";
 
 import { ArrowLeft } from "lucide-react";
