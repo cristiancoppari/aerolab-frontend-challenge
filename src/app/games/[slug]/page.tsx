@@ -156,7 +156,7 @@ export default async function GamePage({ params }: Params) {
       </div>
 
       {similarGames && (
-        <section className="mb-4">
+        <section>
           <Typography as="h2" variant="h1" className="mb-4">
             Similar games
           </Typography>

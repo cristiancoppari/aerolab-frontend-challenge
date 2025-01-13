@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  title: OG_DATA_BASE?.title,
+  title: `${OG_DATA_BASE?.title} - Video Games Collection`,
   description: OG_DATA_BASE?.description,
   openGraph: {
     ...OG_DATA_BASE,
@@ -41,7 +41,7 @@ export default function RootLayout({
         <Background />
         <GradientBackground />
 
-        <div className="relative mx-auto max-w-[728px] px-4 pt-8 md:pt-[8.75rem]">
+        <div className="relative mx-auto max-w-[728px] p-8 px-4 md:pt-[8.75rem]">
           <QueryProvider>
             <GameStoreProvider>
               <AuthWrapper>
