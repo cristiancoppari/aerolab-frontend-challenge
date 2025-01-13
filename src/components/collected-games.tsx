@@ -4,14 +4,21 @@ import type { GameFilter } from "@/types/app";
 
 import Image from "next/image";
 import { useState, useRef } from "react";
+<<<<<<< Updated upstream
 import { motion, useInView, AnimatePresence } from "motion/react";
+=======
+import { AnimatePresence, motion, useInView } from "motion/react";
+>>>>>>> Stashed changes
 
 import { Typography } from "@/components/typography";
 import { Tabs } from "@/components/tabs";
 import { useGameStore } from "@/providers/local-stored-games.provider";
-import { cn } from "@/lib/utils";
 import { GameCollected } from "@/types/api";
+<<<<<<< Updated upstream
 import { FADE_IN_VARIANTS } from "@/lib/constants";
+=======
+import { cn } from "@/lib/utils";
+>>>>>>> Stashed changes
 
 import GameGrid from "./layout/game-grid";
 import GameCard from "./ui/game-card";
@@ -28,15 +35,21 @@ const sortMethods = {
 };
 
 export function CollectedGames() {
+  const [filter, setFilter] = useState<GameFilter>(() => DEFAULT_FILTER);
   const { collectedGames } = useGameStore();
+  const tabsRef = useRef<HTMLUListElement>(null);
+  const isInView = useInView(tabsRef);
 
   const hasGames = collectedGames.length > 0;
 
+<<<<<<< Updated upstream
   const [filter, setFilter] = useState<GameFilter>(() => DEFAULT_FILTER);
 
   const tabsRef = useRef(null);
   const isInView = useInView(tabsRef, { margin: "-1px 0px 0px 0px" });
 
+=======
+>>>>>>> Stashed changes
   return (
     <section>
       <div className="flex flex-col gap-4 md:mt-[6.25rem]">
@@ -52,6 +65,7 @@ export function CollectedGames() {
           </Typography>
         </motion.div>
 
+<<<<<<< Updated upstream
         <motion.div
           variants={FADE_IN_VARIANTS}
           initial="hidden"
@@ -66,6 +80,14 @@ export function CollectedGames() {
             handleFilterChange={setFilter}
           />
         </motion.div>
+=======
+        <Tabs
+          className={cn(!hasGames && "hidden")}
+          filter={filter}
+          handleFilterChange={setFilter}
+          ref={tabsRef}
+        />
+>>>>>>> Stashed changes
 
         <AnimatePresence>
           {!isInView && hasGames && (

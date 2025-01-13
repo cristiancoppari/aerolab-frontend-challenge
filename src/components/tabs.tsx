@@ -1,5 +1,5 @@
 import type { GameFilter } from "@/types/app";
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, RefObject, SetStateAction } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -14,6 +14,10 @@ type TabsProps = {
   filter: GameFilter;
   handleFilterChange: Dispatch<SetStateAction<GameFilter>>;
   isFixed?: boolean;
+<<<<<<< Updated upstream
+=======
+  ref?: RefObject<HTMLUListElement | null>;
+>>>>>>> Stashed changes
 };
 
 export function Tabs({
@@ -21,6 +25,10 @@ export function Tabs({
   filter,
   handleFilterChange,
   isFixed = false,
+<<<<<<< Updated upstream
+=======
+  ref = undefined,
+>>>>>>> Stashed changes
 }: TabsProps) {
   return (
     <ul
@@ -30,6 +38,10 @@ export function Tabs({
           "mx-auto mt-4 max-w-fit rounded-full bg-white/85 p-1 backdrop-blur-sm",
         className,
       )}
+<<<<<<< Updated upstream
+=======
+      ref={ref}
+>>>>>>> Stashed changes
     >
       {pills.map((pill) => (
         <li key={pill.label}>
