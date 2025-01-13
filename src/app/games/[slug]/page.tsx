@@ -15,10 +15,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { GameSimilar } from "@/types/api";
-import CollectedGamesButton from "@/components/collected-games-button";
-import GameGrid from "@/components/layout/game-grid";
-import GameCard from "@/components/ui/game-card";
-import { GameImage } from "@/components/game-image";
+import { GameCard } from "@/components/game/game-card";
+import { GameImage } from "@/components/game/game-image";
+import { GameGrid } from "@/components/game/game-grid";
+import { CollectedGamesButton } from "@/components/collected-games/collected-games-button";
 
 type Params = {
   params: Promise<{ slug: string }>;

@@ -13,7 +13,7 @@ type GameCardProps = {
   deleteGame?: (gameId: string | number) => void;
 };
 
-export default function GameCard({ game, deleteGame }: GameCardProps) {
+export function GameCard({ game, deleteGame }: GameCardProps) {
   return (
     <Link
       key={game.id}

@@ -7,8 +7,8 @@
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { Typography } from "./typography";
-import { InputSearch } from "./input-search";
+import { Typography } from "@/components/typography";
+import { InputSearch } from "@/components/input-search";
 
 export function GamePageHeader() {
   const router = useRouter();

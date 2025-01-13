@@ -6,15 +6,14 @@ import { Button } from "@/components/ui/button";
 import { useGameStore } from "@/providers/local-stored-games.provider";
 import { Game, GameCollected } from "@/types/api";
 import { cn } from "@/lib/utils";
-
-import { Toast } from "./toast";
+import { Toast } from "@/components/toast";
 
 type Props = {
   game: Game;
   className?: string;
 };
 
-export default function CollectedGamesButton({ game, className }: Props) {
+export function CollectedGamesButton({ game, className }: Props) {
   const { collectedGames, addGame, removeGame } = useGameStore();
 
   if (!game.first_release_date) return null;

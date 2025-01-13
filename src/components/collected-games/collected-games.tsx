@@ -6,15 +6,14 @@ import Image from "next/image";
 import { useState, useRef } from "react";
 import { AnimatePresence, motion, useInView } from "motion/react";
 
+import { useGameStore } from "@/providers/local-stored-games.provider";
 import { Typography } from "@/components/typography";
 import { Tabs } from "@/components/tabs";
-import { useGameStore } from "@/providers/local-stored-games.provider";
 import { GameCollected } from "@/types/api";
+import { GameGrid } from "@/components/game/game-grid";
+import { GameCard } from "@/components/game/game-card";
 import { cn } from "@/lib/utils";
 import { FADE_IN_VARIANTS } from "@/lib/constants";
-
-import GameGrid from "./layout/game-grid";
-import GameCard from "./ui/game-card";
 
 const DEFAULT_FILTER = "last-added";
 
