@@ -7,17 +7,22 @@ import { QueryProvider } from "@/providers/query-client.provider";
 import { GameStoreProvider } from "@/providers/local-stored-games.provider";
 import AuthWrapper from "@/components/layout/auth-wrapper";
 import Background from "@/components/layout/background";
-import { PROD_URL } from "@/lib/constants";
+import { getBaseUrl } from "@/lib/utils";
 import { OG_DATA_BASE, TWITTER_DATA_BASE } from "@/lib/opengraph-data";
 
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getBaseUrl()),
+  alternates: {
+    canonical: "/",
+  },
   title: OG_DATA_BASE?.title,
   description: OG_DATA_BASE?.description,
   openGraph: {
     ...OG_DATA_BASE,
-    url: PROD_URL,
+    images: [`${getBaseUrl()}/opengraph-image.jpeg`],
+    url: "/",
   },
   twitter: {
     ...TWITTER_DATA_BASE,
