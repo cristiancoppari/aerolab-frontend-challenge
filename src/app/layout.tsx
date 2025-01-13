@@ -1,23 +1,16 @@
 import type { Metadata } from "next";
 
 import { Toaster } from "sonner";
-import { getImageProps } from "next/image";
 
 import { inter } from "@/lib/font";
 import { QueryProvider } from "@/providers/query-client.provider";
 import { GameStoreProvider } from "@/providers/local-stored-games.provider";
 import AuthWrapper from "@/components/layout/auth-wrapper";
 import Background from "@/components/layout/background";
-import { OG_DATA_BASE, PROD_URL, TWITTER_DATA_BASE } from "@/lib/constants";
+import { PROD_URL } from "@/lib/constants";
+import { OG_DATA_BASE, TWITTER_DATA_BASE } from "@/lib/opengraph-data";
 
 import "@/styles/globals.css";
-
-const {
-  props: { srcSet: desktop },
-} = getImageProps({
-  src: "/images/og-image.png",
-  alt: "OG Image",
-});
 
 export const metadata: Metadata = {
   title: OG_DATA_BASE?.title,
@@ -25,11 +18,9 @@ export const metadata: Metadata = {
   openGraph: {
     ...OG_DATA_BASE,
     url: PROD_URL,
-    images: desktop,
   },
   twitter: {
     ...TWITTER_DATA_BASE,
-    images: desktop,
   },
 };
 
