@@ -28,3 +28,5 @@ export const TWITTER_DATA_BASE: Metadata["twitter"] = {
   creator: "@cristiancoppari",
   site: "@cristiancoppari",
 };
+
+export const PROD_URL = "https://aerolab-frontend-challenge-one.vercel.app";
