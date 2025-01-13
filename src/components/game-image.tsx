@@ -16,11 +16,11 @@ export function GameImage({ game }: Props) {
     <Image
       src={`${getImageUrl(isMobile ? "cover_small" : "cover_big", game.cover?.image_id)}`}
       alt={game.name}
-      height={isMobile ? 82 : 141}
-      width={isMobile ? 115 : 106}
+      height={82}
+      width={115}
+      loading="eager"
       unoptimized
-      className="rounded-md w-auto md:w-[10.625rem]"
+      className="w-auto rounded-md md:w-[10.625rem]"
     />
   );
 }
-
