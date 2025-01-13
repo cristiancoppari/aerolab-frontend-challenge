@@ -30,34 +30,39 @@ export default function CollectedGamesButton({ game, className }: Props) {
 
   const isCollected = collectedGames.some((_game) => _game.id === game.id);
 
-  function collectedGameHandler() {
-    if (isCollected) {
-      removeGame(game.id);
-      toast.custom(() => (
-        <Toast
-          title="Game removed"
-          description={`${game.name} has been removed from your collection`}
-          variant="error"
-        />
-      ));
-    } else {
-      addGame(collectedGameData);
-      toast.custom(() => (
-        <Toast
-          title="Game collected"
-          description={`${game.name} has been added to your collection`}
-          variant="success"
-        />
-      ));
-    }
+  function addGameHandler() {
+    addGame(collectedGameData);
+    toast.custom(() => (
+      <Toast
+        title="Game collected"
+        description={`${game.name} has been added to your collection`}
+        variant="success"
+      />
+    ));
   }
 
-  return (
+  function removeGameHandler() {
+    removeGame(game.id);
+    toast.custom(() => (
+      <Toast
+        title="Game removed"
+        description={`${game.name} has been removed from your collection`}
+        variant="error"
+      />
+    ));
+  }
+
+  return isCollected ? (
     <Button
-      className={cn("w-full", className, isCollected && "")}
-      onClick={collectedGameHandler}
+      className={cn("w-full", className)}
+      variant="secondary"
+      onClick={removeGameHandler}
     >
-      {isCollected ? "Game collected" : "Collect game"}
+      Game collected
+    </Button>
+  ) : (
+    <Button className={cn("w-full", className)} onClick={addGameHandler}>
+      Collect game
     </Button>
   );
 }
