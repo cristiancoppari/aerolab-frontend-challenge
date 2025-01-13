@@ -8,7 +8,8 @@ import { QueryProvider } from "@/providers/query-client.provider";
 import { GameStoreProvider } from "@/providers/local-stored-games.provider";
 import AuthWrapper from "@/components/layout/auth-wrapper";
 import Background from "@/components/layout/background";
-import { OG_DATA_BASE, PROD_URL, TWITTER_DATA_BASE } from "@/lib/constants";
+import { PROD_URL } from "@/lib/constants";
+import { OG_DATA_BASE, TWITTER_DATA_BASE } from "@/lib/opengraph-data";
 
 import "@/styles/globals.css";
 
