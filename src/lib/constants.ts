@@ -10,3 +10,12 @@ export const FADE_IN_VARIANTS = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 };
+
+export const OG_DATA_BASE = {
+  title: "Gaming Haven Z",
+  description:
+    "Application for searching video games and their reviews from your favorite platforms.",
+  siteName: "Gaming Haven Z",
+  locale: "en_US",
+  type: "website",
+};

@@ -6,14 +6,19 @@ import { inter } from "@/lib/font";
 import { QueryProvider } from "@/providers/query-client.provider";
 import { GameStoreProvider } from "@/providers/local-stored-games.provider";
 import AuthWrapper from "@/components/layout/auth-wrapper";
+import { getBaseUrl } from "@/lib/utils";
 import Background from "@/components/layout/background";
+import { OG_DATA_BASE } from "@/lib/constants";
 
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Gaming Haven Z",
-  description:
-    "Application for searching video games and their reviews from your favorite platforms.",
+  title: OG_DATA_BASE.title,
+  description: OG_DATA_BASE.description,
+  openGraph: {
+    ...OG_DATA_BASE,
+    url: getBaseUrl(),
+  },
 };
 
 export default function RootLayout({
