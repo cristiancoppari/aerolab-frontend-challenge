@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 
 import { getGame } from "@/lib/fetchers";
 import { Typography } from "@/components/typography";
@@ -25,7 +26,7 @@ type Params = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata({ params }: Params) {
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const game = await getGame(slug);
 
@@ -43,19 +44,22 @@ export async function generateMetadata({ params }: Params) {
   const description = `${game.name} is a ${genres} game released in ${releaseDate} by ${involvedCompanies} for ${platforms} and rated ${rating}. Here is a summary of the game: ${summary}`;
 
   return {
+    alternates: {
+      canonical: `/game/${game.slug}`,
+    },
     title,
     description,
     openGraph: {
       title,
-      url: `https://gaminghaven.com/games/${game.slug}`,
+      url: `/game/${game.slug}`,
       siteName: "Game Haven",
-      images: screenshots && getImageUrl("1080p", screenshots[0]),
+      images: screenshots && [getImageUrl("1080p", screenshots[0])],
       locale: "en_US",
     },
     twitter: {
       title,
       description,
-      images: screenshots && getImageUrl("1080p", screenshots[0]),
+      images: screenshots && [getImageUrl("1080p", screenshots[0])],
       creator: "@cristiancoppari",
       site: "@cristiancoppari",
     },

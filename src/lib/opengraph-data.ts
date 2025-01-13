@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const OG_DATA_BASE: Metadata["openGraph"] = {
   title: "Gaming Haven Z",
