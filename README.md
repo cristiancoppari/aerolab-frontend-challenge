@@ -20,6 +20,7 @@ This is my solution for the [Aerolab](https://github.com/Aerolab/frontend-develo
 - [Upstash Redis](https://upstash.com)
 - [Motion](https://motion.dev)
 - [Postman](https://postman.com)
+- [OpenGraph](https://www.opengraph.xyz)
 
 ## Development
 
@@ -51,6 +52,9 @@ Check the `env.sample` file to see the environment variables you need to set.
 
 - Development URL: [http://localhost:3000](http://localhost:3000).
 - Production URL: [https://aerolab-frontend-challenge-one.vercel.app](https://aerolab-frontend-challenge-one.vercel.app).
+- PageSpeed Insights: [Report](https://pagespeed.web.dev/analysis/https-aerolab-frontend-challenge-one-vercel-app/nlcc6tf42f?form_factor=mobile)
+- OG Data checker Home: [Report Home Page](https://www.opengraph.xyz/url/https%3A%2F%2Faerolab-frontend-challenge-one.vercel.app%2F)
+- OG Data checker Game: [Report Game Page](https://www.opengraph.xyz/url/https%3A%2F%2Faerolab-frontend-challenge-one.vercel.app%2Fgames%2Fsilent-hill-2-restless-dreams--1)
 
 ## TODO
 
