@@ -1,5 +1,5 @@
 import type { GameFilter } from "@/types/app";
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, RefObject, SetStateAction } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -13,11 +13,27 @@ type TabsProps = {
   className?: string;
   filter: GameFilter;
   handleFilterChange: Dispatch<SetStateAction<GameFilter>>;
+  isFixed?: boolean;
+  ref?: RefObject<HTMLUListElement | null>;
 };
 
-export function Tabs({ className, filter, handleFilterChange }: TabsProps) {
+export function Tabs({
+  className,
+  filter,
+  handleFilterChange,
+  isFixed = false,
+  ref = undefined,
+}: TabsProps) {
   return (
-    <ul className={cn("flex items-center md:justify-center", className)}>
+    <ul
+      className={cn(
+        "flex items-center md:justify-center",
+        isFixed &&
+          "mx-auto mt-4 max-w-fit rounded-full bg-white/85 p-1 backdrop-blur-sm",
+        className,
+      )}
+      ref={ref}
+    >
       {pills.map((pill) => (
         <li key={pill.label}>
           <button

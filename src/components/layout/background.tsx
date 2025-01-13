@@ -26,7 +26,7 @@ export default function Background() {
   });
 
   return (
-    <picture className="absolute left-0 top-0 -z-[1] md:right-0">
+    <picture className="absolute right-0 top-0 -z-[1] md:left-0">
       <source media="(min-width: 768px)" srcSet={desktop} />
       <source media="(max-width: 767px)" srcSet={mobile} />
 

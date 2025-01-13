@@ -3,13 +3,15 @@
 import type { GameFilter } from "@/types/app";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 
 import { Typography } from "@/components/typography";
 import { Tabs } from "@/components/tabs";
 import { useGameStore } from "@/providers/local-stored-games.provider";
-import { cn } from "@/lib/utils";
 import { GameCollected } from "@/types/api";
+import { cn } from "@/lib/utils";
+import { FADE_IN_VARIANTS } from "@/lib/constants";
 
 import GameGrid from "./layout/game-grid";
 import GameCard from "./ui/game-card";
@@ -26,30 +28,71 @@ const sortMethods = {
 };
 
 export function CollectedGames() {
+  const [filter, setFilter] = useState<GameFilter>(() => DEFAULT_FILTER);
   const { collectedGames } = useGameStore();
+  const tabsRef = useRef<HTMLUListElement>(null);
+  const isInView = useInView(tabsRef);
 
   const hasGames = collectedGames.length > 0;
-
-  const [filter, setFilter] = useState<GameFilter>(() => DEFAULT_FILTER);
 
   return (
     <section>
       <div className="flex flex-col gap-4 md:mt-[6.25rem]">
-        <Typography variant="h1" as="h2" className="md:text-center">
-          Saved games
-        </Typography>
+        <motion.div
+          variants={FADE_IN_VARIANTS}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          transition={{ duration: 0.3, delay: 0.5 }}
+        >
+          <Typography variant="h1" as="h2" className="md:text-center">
+            Saved games
+          </Typography>
+        </motion.div>
 
-        <Tabs
-          className={cn(!hasGames && "hidden")}
-          filter={filter}
-          handleFilterChange={setFilter}
-        />
+        <motion.div
+          variants={FADE_IN_VARIANTS}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          transition={{ duration: 0.3, delay: 0.5 }}
+        >
+          <Tabs
+            className={cn(!hasGames && "hidden")}
+            filter={filter}
+            handleFilterChange={setFilter}
+            ref={tabsRef}
+          />
+        </motion.div>
+
+        <AnimatePresence>
+          {!isInView && hasGames && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed left-0 right-0 top-0 z-50"
+            >
+              <Tabs filter={filter} handleFilterChange={setFilter} isFixed />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {hasGames ? (
         <Games games={collectedGames} filter={filter} />
       ) : (
-        <EmptyState />
+        <AnimatePresence>
+          <motion.div
+            variants={FADE_IN_VARIANTS}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            transition={{ duration: 0.3, delay: 0.7 }}
+          >
+            <EmptyState />
+          </motion.div>
+        </AnimatePresence>
       )}
     </section>
   );
@@ -61,6 +104,7 @@ function EmptyState() {
       <Image
         src="/images/empty.png"
         alt="Empty state"
+        unoptimized
         width={358}
         height={168}
       />
@@ -90,7 +134,13 @@ function Games({
   const sortedGames = sortMethods[filter](games);
 
   return (
-    <div className="mt-6">
+    <motion.div
+      className="mt-6"
+      variants={FADE_IN_VARIANTS}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 0.5, delay: 0.7 }}
+    >
       <GameGrid>
         {sortedGames.map((game) => (
           <GameCard
@@ -100,6 +150,6 @@ function Games({
           />
         ))}
       </GameGrid>
-    </div>
+    </motion.div>
   );
 }
