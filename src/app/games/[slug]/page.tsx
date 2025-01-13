@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import { use } from "react";
 
 import { getGame } from "@/lib/fetchers";
 import { Typography } from "@/components/typography";
@@ -67,9 +69,17 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
-export default async function GamePage({ params }: Params) {
-  const { slug } = await params;
-  const game = await getGame(slug);
+export default function GamePage({ params }: Params) {
+  return (
+    <Suspense fallback={<GamePageSkeleton />}>
+      <GamePageContent params={params} />
+    </Suspense>
+  );
+}
+
+function GamePageContent({ params }: Params) {
+  const { slug } = use(params);
+  const game = use(getGame(slug));
 
   if (!game) {
     return redirect("/");
@@ -230,5 +240,89 @@ function GamePageHeader() {
         <InputSearch />
       </div>
     </header>
+  );
+}
+
+function GamePageSkeleton() {
+  return (
+    <main className="flex flex-col justify-center">
+      {/* Header */}
+      <header className="relative">
+        <div className="flex items-center gap-2">
+          <div className="h-4 w-4 rounded bg-brand-gray-150" />
+          <div className="h-8 w-16 rounded bg-brand-gray-150" />
+        </div>
+        <div className="mb-[1.875rem] mt-5 md:m-0">
+          <div className="h-10 w-full rounded bg-brand-gray-150" />
+        </div>
+      </header>
+
+      {/* Game Info Section */}
+      <section className="flex gap-4 md:mb-6 md:mt-20">
+        <div className="h-[300px] w-[225px] rounded-md bg-brand-gray-150" />
+        <div className="flex flex-col gap-2">
+          <div className="h-10 w-64 rounded bg-brand-gray-150" />
+          <div className="h-6 w-48 rounded bg-brand-gray-150" />
+          <div className="hidden h-10 w-32 rounded bg-brand-gray-150 md:mt-6 md:block" />
+        </div>
+      </section>
+
+      {/* Mobile Collect Button */}
+      <div className="my-6 md:hidden">
+        <div className="h-10 w-full rounded bg-brand-gray-150" />
+      </div>
+
+      {/* Game Details */}
+      <div className="mb-10 flex flex-col gap-6">
+        {/* Chips */}
+        <div className="flex flex-wrap gap-2">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-6 w-20 rounded bg-brand-gray-150" />
+          ))}
+        </div>
+
+        {/* Summary */}
+        <section>
+          <div className="mb-2 h-8 w-32 rounded bg-brand-gray-150" />
+          <div className="space-y-2">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-4 rounded bg-brand-gray-150" />
+            ))}
+          </div>
+        </section>
+
+        {/* Platforms */}
+        <section>
+          <div className="mb-2 h-8 w-32 rounded bg-brand-gray-150" />
+          <div className="h-4 w-64 rounded bg-brand-gray-150" />
+        </section>
+
+        {/* Screenshots */}
+        <section>
+          <div className="mb-2 h-8 w-32 rounded bg-brand-gray-150" />
+          <div className="flex gap-4 overflow-hidden">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="h-[5.25rem] w-[5.25rem] rounded-md bg-brand-gray-150 md:aspect-square"
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Similar Games */}
+      <section className="mb-4">
+        <div className="mb-4 h-10 w-48 rounded bg-brand-gray-150" />
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="aspect-[3/4] rounded-md bg-brand-gray-150"
+            />
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
