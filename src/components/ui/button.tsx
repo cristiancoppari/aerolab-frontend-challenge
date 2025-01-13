@@ -13,6 +13,13 @@ const buttonVariants = cva(
           "inline-block font-base rounded-full bg-brand-violet-900 text-brand-gray-0 border border-brand-violet-900 font-semibold active:bg-brand-gray-0 active:text-brand-violet-900 transition-all duration-200 ease-in-out hover:bg-brand-violet-600",
         secondary:
           "inline-block font-base rounded-full bg-white text-brand-violet-900 border border-brand-violet-900 font-semibold transition-all duration-200 ease-in-out hover:bg-brand-violet-600/5",
+        ghost:
+          "hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
+        link: "text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-50",
+        destructive:
+          "bg-red-500 text-neutral-50 shadow-sm hover:bg-red-500/90 dark:bg-red-900 dark:text-neutral-50 dark:hover:bg-red-900/90",
+        outline:
+          "border border-neutral-200 bg-white shadow-sm hover:bg-neutral-100 hover:text-neutral-900 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
       },
       size: {
         default: "h-9 px-4 py-2",

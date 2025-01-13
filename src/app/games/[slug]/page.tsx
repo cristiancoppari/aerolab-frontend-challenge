@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 import { getGame } from "@/lib/fetchers";
 import { Typography } from "@/components/typography";
@@ -27,6 +28,11 @@ type Params = {
 export default async function GamePage({ params }: Params) {
   const { slug } = await params;
   const game = await getGame(slug);
+
+  if (!game) {
+    return redirect("/");
+  }
+
   const {
     involvedCompanies,
     releaseDate,
