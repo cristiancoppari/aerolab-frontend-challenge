@@ -25,6 +25,43 @@ type Params = {
   params: Promise<{ slug: string }>;
 };
 
+export async function generateMetadata({ params }: Params) {
+  const { slug } = await params;
+  const game = await getGame(slug);
+
+  const {
+    involvedCompanies,
+    releaseDate,
+    rating,
+    genres,
+    summary,
+    platforms,
+    screenshots,
+  } = extractGameData(game);
+
+  const title = `${game.name} - ${releaseDate} - Game Haven`;
+  const description = `${game.name} is a ${genres} game released in ${releaseDate} by ${involvedCompanies} for ${platforms} and rated ${rating}. Here is a summary of the game: ${summary}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      url: `https://gaminghaven.com/games/${game.slug}`,
+      siteName: "Game Haven",
+      images: screenshots && getImageUrl("1080p", screenshots[0]),
+      locale: "en_US",
+    },
+    twitter: {
+      title,
+      description,
+      images: screenshots && getImageUrl("1080p", screenshots[0]),
+      creator: "@cristiancoppari",
+      site: "@cristiancoppari",
+    },
+  };
+}
+
 export default async function GamePage({ params }: Params) {
   const { slug } = await params;
   const game = await getGame(slug);
