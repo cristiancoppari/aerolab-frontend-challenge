@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description: OG_DATA_BASE?.description,
   openGraph: {
     ...OG_DATA_BASE,
-    images: [`${getBaseUrl()}/opengraph-image.jpeg`],
+    images: [`${getBaseUrl()}/images/opengraph-image.jpeg`],
     url: "/",
   },
   twitter: {
