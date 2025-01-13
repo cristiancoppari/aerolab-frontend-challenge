@@ -12,3 +12,11 @@ export const FADE_IN_VARIANTS = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 };
+
+export const FAV_GAMES_SLUGS = [
+  "silent-hill-2",
+  "silent-hill-4-the-room",
+  "metal-gear-solid-4-guns-of-the-patriots",
+  "crash-bandicoot--2",
+  "resident-evil-2",
+];

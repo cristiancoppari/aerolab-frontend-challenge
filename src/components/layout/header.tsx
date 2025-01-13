@@ -12,6 +12,7 @@ import { Logo } from "@/components/logo";
 
 export function Header() {
   const pathname = usePathname();
+
   const isGamePage = pathname.includes("/games/");
 
   if (isGamePage) {

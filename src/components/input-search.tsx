@@ -9,6 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounceValue } from "usehooks-ts";
 import Link from "next/link";
 
+import { FAV_GAMES_SLUGS } from "@/lib/constants";
+import { getGame } from "@/lib/fetchers";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { cn } from "@/lib/utils";
@@ -27,6 +29,14 @@ export function InputSearch() {
     queryKey: ["games", debouncedSearch[0]],
     queryFn: () => searchGames(debouncedSearch[0]),
     enabled: debouncedSearch[0]?.length > 0,
+  });
+
+  const { data: favGames } = useQuery({
+    queryKey: ["favGames"],
+    queryFn: async () => {
+      const games = await Promise.all(FAV_GAMES_SLUGS.map(getGame));
+      return games;
+    },
   });
 
   useClickOutside(wrapperRef, () => setIsOpen(false));
@@ -67,32 +77,67 @@ export function InputSearch() {
 
         {isOpen && (
           <div className="absolute left-0 right-0 top-full z-10 overflow-hidden rounded-3xl rounded-t-[0px] border border-t-0 border-brand-pink-600/40 bg-white shadow-lg">
-            <ScrollArea className="h-[300px] overflow-y-auto p-2">
+            <ScrollArea className="h-auto max-h-[349px] overflow-y-auto p-2">
               {isLoading ? (
                 <div className="p-2 text-sm text-gray-500">Loading...</div>
-              ) : searchResults && searchResults.length > 0 ? (
-                searchResults.slice(0, LIMIT).map((game: GameSearchResult) => (
-                  <Link
-                    key={game.id}
-                    href={`/games/${game.slug}`}
-                    className="flex w-full items-center gap-3 rounded-xl p-2 text-left hover:bg-purple-50"
-                  >
-                    <div className="h-10 w-10 flex-shrink-0">
-                      <Image
-                        src={getImageUrl("cover_small", game.cover?.image_id)}
-                        alt={game.name}
-                        className="h-full w-full rounded-lg object-cover"
-                        width={40}
-                        height={40}
-                      />
-                    </div>
-                    <span className="text-sm text-gray-900">{game.name}</span>
-                  </Link>
-                ))
+              ) : search.length > 0 ? (
+                searchResults && searchResults.length > 0 ? (
+                  searchResults
+                    .slice(0, LIMIT)
+                    .map((game: GameSearchResult) => (
+                      <Link
+                        key={game.id}
+                        href={`/games/${game.slug}`}
+                        onClick={() => setIsOpen(false)}
+                        className="flex w-full items-center gap-3 rounded-xl p-2 text-left hover:bg-purple-50"
+                      >
+                        <div className="h-10 w-10 flex-shrink-0">
+                          <Image
+                            src={getImageUrl(
+                              "cover_small",
+                              game.cover?.image_id,
+                            )}
+                            alt={game.name}
+                            className="h-full w-full rounded-lg object-cover"
+                            width={40}
+                            height={40}
+                          />
+                        </div>
+                        <span className="text-sm text-gray-900">
+                          {game.name}
+                        </span>
+                      </Link>
+                    ))
+                ) : (
+                  <div className="p-2 text-sm text-gray-500">
+                    No results found
+                  </div>
+                )
               ) : (
-                <div className="p-2 text-sm text-gray-500">
-                  No results found
-                </div>
+                <>
+                  <div className="mb-2 px-2 text-sm font-medium text-gray-500">
+                    Recommended Games
+                  </div>
+                  {favGames?.map((game) => (
+                    <Link
+                      key={game.id}
+                      href={`/games/${game.slug}`}
+                      onClick={() => setIsOpen(false)}
+                      className="flex w-full items-center gap-3 rounded-xl p-2 text-left hover:bg-purple-50"
+                    >
+                      <div className="h-10 w-10 flex-shrink-0">
+                        <Image
+                          src={getImageUrl("cover_small", game.cover?.image_id)}
+                          alt={game.name}
+                          className="h-full w-full rounded-lg object-cover"
+                          width={40}
+                          height={40}
+                        />
+                      </div>
+                      <span className="text-sm text-gray-900">{game.name}</span>
+                    </Link>
+                  ))}
+                </>
               )}
             </ScrollArea>
           </div>
