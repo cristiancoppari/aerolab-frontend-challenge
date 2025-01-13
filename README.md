@@ -19,6 +19,7 @@ This is my solution for the [Aerolab](https://github.com/Aerolab/frontend-develo
 - [Vercel](https://vercel.com)
 - [Upstash Redis](https://upstash.com)
 - [Motion](https://motion.dev)
+- [Postman](https://postman.com)
 
 ## Development
 
@@ -51,6 +52,6 @@ Check the `env.sample` file to see the environment variables you need to set.
 - Development URL: [http://localhost:3000](http://localhost:3000).
 - Production URL: [https://aerolab-frontend-challenge-one.vercel.app](https://aerolab-frontend-challenge-one.vercel.app).
 
-## Features
+## TODO
 
-- Exported assets in 2x to avoid loosing quality in high res screens
+- [ ] Add POSTMAN collection
