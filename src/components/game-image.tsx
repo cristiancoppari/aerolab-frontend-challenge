@@ -19,7 +19,8 @@ export function GameImage({ game }: Props) {
       height={isMobile ? 82 : 141}
       width={isMobile ? 115 : 106}
       unoptimized
-      className="rounded-md md:h-[14.125rem] md:w-[10.625rem]"
+      className="rounded-md w-auto md:w-[10.625rem]"
     />
   );
 }
+

@@ -27,7 +27,7 @@ export default function GameCard({ game, deleteGame }: GameCardProps) {
         height={358}
         width={150}
         unoptimized
-        className="w-full rounded-md"
+        className="h-auto w-full rounded-md"
       />
 
       {deleteGame && <DeleteButton onClick={() => deleteGame(game.id)} />}
